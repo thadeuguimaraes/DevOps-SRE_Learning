@@ -15,7 +15,20 @@
 - `Primeiros passos no Kubernetes com o kubectl`
 - `Conhecendo o YAML e o kubectl com dry-run`
 - ``
+- ``
+- ``
 
 ## Livro Descomplicando o Kubernetes Gratuito
 
 https://livro.descomplicandokubernetes.com.br/?utm_medium=social&utm_source=linktree&utm_campaign=livro+descomplicando+o+kubernetes+gratuito
+
+```bash
+git add .
+```
+
+```bash
+git commit -m ""
+```
+```bash
+git push origin [branch_principal]
+```
