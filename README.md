@@ -14,6 +14,16 @@
 - `Criando o nosso primeiro cluster com o Kind`
 - `Primeiros passos no Kubernetes com o kubectl`
 - `Conhecendo o YAML e o kubectl com dry-run`
+## Day-2 - Descomplicando os pods e Limites de Recursos
+
+- `O que é um Pod?`
+- `Os sencacionais kubectl get pods e o kubectl describe pods`
+- `Conhecendo o kubectl attach e o kubectl exec`
+- `Criando o nosso primeiro pod multicontainer utilizando um manifesto`
+- ``
+- ``
+- ``
+- ``
 - ``
 - ``
 - ``
@@ -31,4 +41,52 @@ git commit -m ""
 ```
 ```bash
 git push origin [branch_principal]
+```
+
+```bash
+kubectl get pod 
+```
+```bash
+kubectl get nodes
+```
+```bash
+ kubectl get pod -o wide  
+```
+```bash
+kubectl get pods strigus -o yaml 
+```
+```bash
+kubectl exec -ti strigus -- bash 
+```
+```bash
+kubectl attach strigus -c strigus -ti
+```
+```bash
+kubectl get pods -A
+```
+```bash
+kubectl get pods --all-namespaces
+```
+```bash
+kubectl get pos -n kube-system
+```
+```bash
+ kubectl exec girus -- cat /usr/share/nginx/html/index.html  
+```
+```bash
+kubectl run girus-1 --image alpine --dry-run=client -o yaml
+```
+```bash
+kubectl logs matrix-1 -f
+```
+```bash
+kubectl logs matrix-1 -c busybox
+```
+```bash
+```
+```bash
+```
+```bash
+```
+```bash
 ```
