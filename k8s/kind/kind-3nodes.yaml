@@ -1,0 +1,12 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+  - role: control-plane
+  - role: worker
+  - role: worker
+  - role: worker
+
+# curl -fsSL https://get.docker.com/ | sh
+# kind create cluster --name kind-multinodes --config kind-3nodes.yaml
+# kind delete clusters $(kind get clusters)
+# kubectl cluster-info --context kind-kind-multinodes
