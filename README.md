@@ -28,8 +28,8 @@
 ## Day-3 Descomplicando Deployments e estratégias de rollout
 
 - `O que é um Deployment`
-- ``
-- ``
+- `Criando um Deployment através de um manifesto`
+- `Criando mais Deployment através de um manifesto`
 - ``
 - ``
 
