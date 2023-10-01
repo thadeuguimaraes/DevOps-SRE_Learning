@@ -5,8 +5,3 @@ nodes:
   - role: worker
   - role: worker
   - role: worker
-
-# curl -fsSL https://get.docker.com/ | sh
-# kind create cluster --name kind-multinodes --config kind-3nodes.yaml
-# kind delete clusters $(kind get clusters)
-# kubectl cluster-info --context kind-kind-multinodes

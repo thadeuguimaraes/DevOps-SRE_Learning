@@ -16,11 +16,11 @@ spec:
         - containerPort: 80
       resources:
         limits:
-          memory: "128Mi"
-          cpu: "1"
+          memory: 128Mi
+          cpu: 1
         requests:
-          memory: "64Mi"
-          cpu: "0.5"
+          memory: 64Mi
+          cpu: 0.5
       args: ["sleep", "1800"]
   dnsPolicy: ClusterFirst
   restartPolicy: Always
