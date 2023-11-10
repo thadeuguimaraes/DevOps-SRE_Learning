@@ -16,8 +16,8 @@ spec:
         app: nginx-deployment
     spec:
       containers:
-        - image: nginx:1.19.1
-          name: nginx
+        - image: nginx-deployment:1.19.1
+          name: nginx-deployment
           resources:
             limits:
               cpu: 0.5
