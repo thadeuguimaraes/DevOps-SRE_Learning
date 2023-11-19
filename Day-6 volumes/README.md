@@ -79,7 +79,7 @@ Uma coisa que podemos ver é que o nosso Storage Class está com a opção IsDef
 
 Vamos criar um novo Storage Class para o nosso cluster Kubernetes no kind, com o nome "local-storage". Vamos definir o provisionador como "kubernetes.io/host-path", que cria volumes PersistentVolume no diretório do host.
 
-````yaml
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -87,12 +87,13 @@ metadata:
 provisioner: kubernetes.io/no-provisioner
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
+```
 
 ```bash
 kubectl apply -f storageclass.yaml
-````
+```
 
-`storageclass.storage.k8s.io/giropops created`
+storageclass.storage.k8s.io/giropops created
 
 Pronto! Agora nós temos um novo S`torage Class` criado no nosso cluster Kubernetes no kind, com o nome "giropops", e com o provisionador "kubernetes.io/no-provisioner", que cria volumes PersistentVolume no diretório do host.
 
