@@ -159,7 +159,7 @@ Vamos resolver isso, bora criar um PV?
 
 Para isso, vamos criar um arquivo chamado `pv.yaml:`
 
-````yaml
+```yaml
 apiVersion: v1 # Versão da API do Kubernetes
 kind: PersistentVolume # Tipo de objeto que estamos criando, no caso um PersistentVolume
 metadata: # Informações sobre o objeto
@@ -175,7 +175,7 @@ spec: # Especificações do nosso PV
   hostPath: # Tipo de armazenamento que vamos utilizar, no caso um hostPath
     path: "/mnt/data" # Caminho do hostPath, do nosso nó, onde o PV será criado
   storageClassName: standard # Nome da classe de armazenamento que será utilizada
-
+```
 
 Antes de criar o PV, eu preciso falar um pouquinho mais sobre o arquivo que criamos, principalmente sobre o que temos de diferente em relação aos outros arquivos que criamos até agora.
 
@@ -207,7 +207,7 @@ Pronto, tudo está pronto para criarmos o PV.
 
 ```bash
 kubectl apply -f pv.yaml
-````
+```
 
 ```bash
 persistentvolume/meu-pv created
