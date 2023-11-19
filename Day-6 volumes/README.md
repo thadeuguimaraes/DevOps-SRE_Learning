@@ -103,17 +103,19 @@ Para saber mais detalhes sobre o `Storage Class` que criamos, execute o seguinte
 kubectl describe storageclass giropops
 ```
 
-Name: giropops
-IsDefaultClass: No
-Annotations: kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"storage.k8s.io/v1","kind":"StorageClass","metadata":{"annotations":{},"name":"giropops"},"provisioner":"kubernetes.io/no-provisioner","reclaimPolicy":"Retain","volumeBindingMode":"WaitForFirstConsumer"}
+**Name:** giropops  
+**IsDefaultClass:** No  
+**Annotations:**
 
-Provisioner: kubernetes.io/no-provisioner
-Parameters: <none>
-AllowVolumeExpansion: <unset>
-MountOptions: <none>
-ReclaimPolicy: Retain
-VolumeBindingMode: WaitForFirstConsumer
-Events: <none>
+- kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"storage.k8s.io/v1","kind":"StorageClass","metadata":{"annotations":{},"name":"giropops"},"provisioner":"kubernetes.io/no-provisioner","reclaimPolicy":"Retain","volumeBindingMode":"WaitForFirstConsumer"}
+
+**Provisioner:** kubernetes.io/no-provisioner  
+**Parameters:** <none>  
+**AllowVolumeExpansion:** <unset>  
+**MountOptions:** <none>  
+**ReclaimPolicy:** Retain  
+**VolumeBindingMode:** WaitForFirstConsumer  
+**Events:** <none>
 
 Lembrando que criamos esse Storage Class com o provisionador "kubernetes.io/no-provisioner", mas você pode criar um Storage Class com qualquer provisionador que você quiser, como o "kubernetes.io/aws-ebs", que cria volumes PersistentVolume no EBS da AWS.
 
@@ -157,20 +159,23 @@ Vamos resolver isso, bora criar um PV?
 
 Para isso, vamos criar um arquivo chamado `pv.yaml:`
 
+````yaml
 apiVersion: v1 # Versão da API do Kubernetes
 kind: PersistentVolume # Tipo de objeto que estamos criando, no caso um PersistentVolume
 metadata: # Informações sobre o objeto
-name: meu-pv # Nome do nosso PV
-labels:
-storage: local
+  name: meu-pv # Nome do nosso PV
+  labels:
+    storage: local
 spec: # Especificações do nosso PV
-capacity: # Capacidade do PV
-storage: 1Gi # 1 Gigabyte de armazenamento
-accessModes: # Modos de acesso ao PV - ReadWriteOnce # Modo de acesso ReadWriteOnce, ou seja, o PV pode ser montado como leitura e escrita por um único nó
-persistentVolumeReclaimPolicy: Retain # Política de reivindicação do PV, ou seja, o PV não será excluído quando o PVC for excluído
-hostPath: # Tipo de armazenamento que vamos utilizar, no caso um hostPath
-path: "/mnt/data" # Caminho do hostPath, do nosso nó, onde o PV será criado
-storageClassName: standard # Nome da classe de armazenamento que será utilizada
+  capacity: # Capacidade do PV
+    storage: 1Gi # 1 Gigabyte de armazenamento
+  accessModes: # Modos de acesso ao PV - ReadWriteOnce # Modo de acesso ReadWriteOnce, ou seja, o PV pode ser montado como leitura e escrita por um único nó
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain # Política de reivindicação do PV, ou seja, o PV não será excluído quando o PVC for excluído
+  hostPath: # Tipo de armazenamento que vamos utilizar, no caso um hostPath
+    path: "/mnt/data" # Caminho do hostPath, do nosso nó, onde o PV será criado
+  storageClassName: standard # Nome da classe de armazenamento que será utilizada
+
 
 Antes de criar o PV, eu preciso falar um pouquinho mais sobre o arquivo que criamos, principalmente sobre o que temos de diferente em relação aos outros arquivos que criamos até agora.
 
@@ -202,7 +207,7 @@ Pronto, tudo está pronto para criarmos o PV.
 
 ```bash
 kubectl apply -f pv.yaml
-```
+````
 
 ```bash
 persistentvolume/meu-pv created
@@ -228,24 +233,24 @@ Vamos ver os detalhes do nosso PV.
 kubectl describe pv meu-pv
 ```
 
-Name: meu-pv
-Labels: storage=local
-Annotations: <none>
-Finalizers: [kubernetes.io/pv-protection]
-StorageClass: standard
-Status: Available
-Claim:  
-Reclaim Policy: Retain
-Access Modes: RWO
-VolumeMode: Filesystem
-Capacity: 1Gi
-Node Affinity: <none>
-Message:  
-Source:
-Type: HostPath (bare host directory volume)
-Path: /mnt/data
-HostPathType:  
-Events: <none>
+- Name: meu-pv
+- Labels: storage=local
+- Annotations: <none>
+- Finalizers: [kubernetes.io/pv-protection]
+- StorageClass: standard
+- Status: Available
+- Claim:
+- Reclaim Policy: Retain
+- Access Modes: RWO
+- VolumeMode: Filesystem
+- Capacity: 1Gi
+- Node Affinity: <none>
+- Message:
+- Source:
+  - Type: HostPath (bare host directory volume)
+  - Path: /mnt/data
+  - HostPathType:
+- Events: <none>
 
 Dessa forma estamos criando o PV utilizando o provisionador hostPath, que é um provisionador para ser utilizado em testes e desenvolvimento, já que os dados armazenados só estão disponíveis no node específico, por isso bora para mais um exemplo, mas agora utilizando o provisionador nfs, que é um sistema de arquivos de rede que permite compartilhar arquivos entre várias máquinas na rede.
 
@@ -309,6 +314,7 @@ Agora que já temos o nosso NFS funcionando, vamos criar o nosso StorageClass pa
 
 Para esse exemplo, vamos criar um arquivo chamado `storageclass-nfs.yaml` e adicionar o seguinte conteúdo.
 
+```yaml
 apiVersion: storage.k8s.io/v1 # Versão da API do Kubernetes
 kind: StorageClass # Tipo de objeto que estamos criando, no caso um StorageClass
 metadata: # Informações sobre o objeto
@@ -318,13 +324,14 @@ reclaimPolicy: Retain # Política de reivindicação do PV, ou seja, o PV não s
 volumeBindingMode: WaitForFirstConsumer
 parameters: # Parâmetros que serão utilizados pelo provisionador
 archiveOnDelete: "false" # Parâmetro que indica se os dados do PV devem ser arquivados quando o PV for excluído
+```
 
 Kubernetes não possui um provisionador `nfs` nativo, então não é possível fazer com que o provisionador `kubernetes.io/no-provisioner` crie um PV utilizando um servidor NFS automaticamente, para que isso seja possível, precisamos utilizar um provisionador nfs externo, mas isso não é o foco nesse momento, então vamos criar o nosso PV manualmente, afinal de contas, já estamos experts em PVs, certo?
 
 Bora lá!
 
+```yaml
 Então já podemos criar o PV e associa-lo ao Storage Class, e para isso vamos criar um novo arquivo chamado `pv-nfs.yaml` e adicionar o seguinte conteúdo.
-
 apiVersion: v1 # Versão da API do Kubernetes
 kind: PersistentVolume # Tipo de objeto que estamos criando, no caso um PersistentVolume
 metadata: # Informações sobre o objeto
@@ -342,6 +349,7 @@ path: "/mnt/nfs" # Compartilhamento do servidor NFS
 storageClassName: nfs # Nome da classe de armazenamento que será utilizada
 
 ## Agora vamos criar o nosso PV.
+```
 
 ```bash
 kubectl apply -f pv-nfs.yaml
