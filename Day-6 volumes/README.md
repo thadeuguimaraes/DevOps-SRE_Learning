@@ -60,33 +60,37 @@ Vamos ver os detalhes do nosso Storage Class padrão:
 kubectl describe storageclass standard
 ```
 
-Name: standard
-IsDefaultClass: Yes
-Annotations: kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"storage.k8s.io/v1","kind":"StorageClass","metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"},"name":"standard"},"provisioner":"rancher.io/local-path","reclaimPolicy":"Delete","volumeBindingMode":"WaitForFirstConsumer"}
-,storageclass.kubernetes.io/is-default-class=true
-Provisioner: rancher.io/local-path
-Parameters: <none>
-AllowVolumeExpansion: <unset>
-MountOptions: <none>
-ReclaimPolicy: Delete
-VolumeBindingMode: WaitForFirstConsumer
-Events: <none>
+**Name:** standard  
+**IsDefaultClass:** Yes  
+**Annotations:**
 
-Uma coisa que podemos ver é que o nosso Storage Class está com a opção IsDefaultClass como Yes, o que significa que ele é o Storage Class padrão do nosso cluster, com isso todos os Persistent Volume Claims que não tiverem um Storage Class definido, irão utilizar esse Storage Class como padrão.
+- kubectl.kubernetes.io/last-applied-configuration={"apiVersion":"storage.k8s.io/v1","kind":"StorageClass","metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"},"name":"standard"},"provisioner":"rancher.io/local-path","reclaimPolicy":"Delete","volumeBindingMode":"WaitForFirstConsumer"}
+- storageclass.kubernetes.io/is-default-class=true
 
-Vamos criar um novo Storage Class para o nosso cluster Kubernetes no kind, com o nome "local-storage", e vamos definir o provisionador como "kubernetes.io/host-path", que cria volumes PersistentVolume no diretório do host.
+**Provisioner:** rancher.io/local-path  
+**Parameters:** <none>  
+**AllowVolumeExpansion:** <unset>  
+**MountOptions:** <none>  
+**ReclaimPolicy:** Delete  
+**VolumeBindingMode:** WaitForFirstConsumer  
+**Events:** <none>
 
+Uma coisa que podemos ver é que o nosso Storage Class está com a opção IsDefaultClass como Yes, o que significa que ele é o Storage Class padrão do nosso cluster. Com isso, todos os Persistent Volume Claims que não tiverem um Storage Class definido irão utilizar esse Storage Class como padrão.
+
+Vamos criar um novo Storage Class para o nosso cluster Kubernetes no kind, com o nome "local-storage". Vamos definir o provisionador como "kubernetes.io/host-path", que cria volumes PersistentVolume no diretório do host.
+
+````yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-name: giropops
+  name: giropops
 provisioner: kubernetes.io/no-provisioner
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
 
 ```bash
 kubectl apply -f storageclass.yaml
-```
+````
 
 `storageclass.storage.k8s.io/giropops created`
 
