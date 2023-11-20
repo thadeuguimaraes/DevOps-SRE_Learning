@@ -330,8 +330,9 @@ Kubernetes não possui um provisionador `nfs` nativo, então não é possível f
 
 Bora lá!
 
-```yaml
 Então já podemos criar o PV e associa-lo ao Storage Class, e para isso vamos criar um novo arquivo chamado `pv-nfs.yaml` e adicionar o seguinte conteúdo.
+
+```yaml
 apiVersion: v1 # Versão da API do Kubernetes
 kind: PersistentVolume # Tipo de objeto que estamos criando, no caso um PersistentVolume
 metadata: # Informações sobre o objeto
@@ -347,9 +348,9 @@ nfs: # Tipo de armazenamento que vamos utilizar, no caso o NFS
 server: IP_DO_SERVIDOR_NFS # Endereço do servidor NFS
 path: "/mnt/nfs" # Compartilhamento do servidor NFS
 storageClassName: nfs # Nome da classe de armazenamento que será utilizada
+```
 
 ## Agora vamos criar o nosso PV.
-```
 
 ```bash
 kubectl apply -f pv-nfs.yaml
@@ -371,7 +372,7 @@ Vamos criar o nosso primeiro PVC para o PV que criamos anteriormente.
 
 Para isso, vamos criar um arquivo chamado pvc.yaml e adicionar o seguinte conteúdo:
 
-````yaml
+```yaml
 apiVersion: v1 # versão da API do Kubernetes
 kind: PersistentVolumeClaim # tipo de recurso, no caso, um PersistentVolumeClaim
 metadata: # metadados do recurso
@@ -386,7 +387,7 @@ spec: # especificação do PVC
   selector: # seletor de labels
     matchLabels: # labels que serão utilizadas para selecionar o PV
       storage: nfs # label que será utilizada para selecionar o PV
-
+```
 
 Aqui nós estamos definindo o nosso PVC, e vou falar um pouco sobre as principais seções do nosso arquivo.
 
@@ -402,7 +403,7 @@ Vamos criar o nosso PVC.
 
 ```bash
 kubectl apply -f pvc.yaml
-````
+```
 
 persistentvolumeclaim/meu-pvc created
 
