@@ -25,4 +25,5 @@ spec:
           persistenVolumeClaim:
             claimName: nginx-pvc
 
+
   
