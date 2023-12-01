@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: matrix-statefulset
+spec:
+  serviceName: "meu-servico"
+  replicas: 2
+  selector:
+    matchLabels:
+      app: matrix-aplicativo
+  template:
+    metadata:
+      labels:
+        app: matrix-aplicativo
+    spec:
+      containers:
+        - name: matrix-container
+          image: nginx:latest
+          ports:
+            - containerPort: 80

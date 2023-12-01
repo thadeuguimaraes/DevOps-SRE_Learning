@@ -493,6 +493,10 @@ kubectl apply -f pod.yaml
 
 pod/nginx-pod created
 
+```bash
+kubectl get pods
+```
+
 Bora ver se está tudo certo com o nosso Pod.
 
 | NAME      | READY | STATUS  | RESTARTS | AGE |

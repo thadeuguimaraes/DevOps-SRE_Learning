@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   labels:
     storage: lento
-  name: pv-matrix
+  name: my-pv
 spec:
   capacity:
     storage: 1Gi
