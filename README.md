@@ -5,3 +5,4 @@ Os repositórios são estruturados para abordar ferramentas como Python, Go, Red
 Cada repositório contém estudos, exemplos de código, guias práticos, casos de uso e recursos que auxiliam na compreensão, implementação e otimização dessas tecnologias. O objetivo é oferecer um recurso aberto e colaborativo para entusiastas, profissionais em busca de aprimoramento e equipes interessadas em aprofundar seus conhecimentos nessas áreas fundamentais para a confiabilidade e eficiência de sistemas e aplicações.
 
 Por meio do SRE-Learning, os usuários têm acesso a um conjunto valioso de informações e práticas que visam fortalecer suas habilidades técnicas e promover o desenvolvimento contínuo na área de SRE e DevOps, impulsionando a excelência na gestão de infraestrutura e operações de sistemas distribuídos e escaláveis."
+# DevSecOps-Project-flow
