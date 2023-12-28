@@ -105,7 +105,10 @@ Agora que você já criou o arquivo YAML, você pode criar o Secret usando o com
 ```bash
 kubectl create -f matrix-secret.yaml
 ```
+
+```
 secret/matrix-secret created
+```
  
 
 Pronto, o nosso primeiro Secret foi criado! Agora você pode ver o Secret usando o comando kubectl get:
@@ -220,7 +223,8 @@ Agora vamos criar o Pod usando o comando kubectl apply:
 kubectl apply -f matrix-pod.yaml
 ```
 
-```pod/matrix-pod created
+```
+pod/matrix-pod created
 ```
  
 
